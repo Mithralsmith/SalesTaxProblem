@@ -12,13 +12,13 @@ namespace SalesTaxProblem.Extensions.Tests
     {
         private static object[] RoundUpTo5Cents_StartExpectedCases =
         {
-            new object[] {Constants.FiveCents, 0.05, 0.05},
-            new object[] {Constants.FiveCents, 0.05999, 0.10},
-            new object[] {Constants.FiveCents, 0.05001, 0.10},
-            new object[] {Constants.FiveCents, 0.0525, 0.10},
-            new object[] {Constants.FiveCents, 0.04999, 0.05},
-            new object[] {Constants.FiveCents, 0.00001, 0.05},
-            new object[] {Constants.FiveCents, 0.00, 0.00},
+            new object[] {TaxConstants.FiveCents, 0.05, 0.05},
+            new object[] {TaxConstants.FiveCents, 0.05999, 0.10},
+            new object[] {TaxConstants.FiveCents, 0.05001, 0.10},
+            new object[] {TaxConstants.FiveCents, 0.0525, 0.10},
+            new object[] {TaxConstants.FiveCents, 0.04999, 0.05},
+            new object[] {TaxConstants.FiveCents, 0.00001, 0.05},
+            new object[] {TaxConstants.FiveCents, 0.00, 0.00},
         };
 
         [Test, TestCaseSource(nameof(RoundUpTo5Cents_StartExpectedCases))]
