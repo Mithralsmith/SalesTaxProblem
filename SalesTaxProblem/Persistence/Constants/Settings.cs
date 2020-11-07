@@ -10,9 +10,9 @@ namespace SalesTaxProblem.Persistence.Constants
         {
             public static IEnumerable<string> TaxExemptProductTypeNames => new List<string>
             {
-                "books",
-                "food",
-                "medical"
+                "Book",
+                "Food",
+                "Medical"
             };
 
             public static double TaxRate { get; }
