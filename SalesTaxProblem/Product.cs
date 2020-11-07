@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SalesTaxProblem
 {
-    public class Product
+    public class Product : IProduct
     {
         public string Name { get; set; }
         public double Price { get; set; }
