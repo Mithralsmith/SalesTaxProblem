@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using SalesTaxProblem.Persistence.Constants;
 
 namespace SalesTaxProblem.Extensions
 {
     public static class TaxCalcExtensions
     {
-        public static double RoundToNearest5Cents(this double value)
+        public static double RoundUpToNearest(this double value, double roundTo)
         {
-
-            return Math.Round(value / 0.05, 0, MidpointRounding.AwayFromZero) * 0.05;
+            if (roundTo == 0)
+            {
+                return value;
+            }
+            return Math.Ceiling(value / roundTo) * roundTo;
         }
     }
 }
