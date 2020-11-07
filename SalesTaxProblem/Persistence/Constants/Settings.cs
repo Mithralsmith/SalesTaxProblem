@@ -2,9 +2,10 @@
 
 namespace SalesTaxProblem.Persistence.Constants
 {
-    public static class AssumedSettings
+    //This class provides values that depending on the real world application
+    //  would come from a database, a config file, or constants class.
+    public static class Settings
     {
-        public static double FiveCents => 0.05;
         public static class Config
         {
             public static IEnumerable<string> TaxExemptProductTypeNames => new List<string>
@@ -17,7 +18,6 @@ namespace SalesTaxProblem.Persistence.Constants
             public static double TaxRate { get; }
             static Config()
             {
-                //In a real application this would be read from a database or config file 
                 TaxRate = 0.10;
             }
         }
