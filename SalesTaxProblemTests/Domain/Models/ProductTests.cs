@@ -1,11 +1,7 @@
 ﻿using NUnit.Framework;
-using SalesTaxProblem;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using SalesTaxProblem.Domain.Models;
 
-namespace SalesTaxProblem.Tests
+namespace SalesTaxProblemTests.Domain.Models
 {
     [TestFixture()]
     public class ProductTests

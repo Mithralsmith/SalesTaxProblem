@@ -1,12 +1,8 @@
 ﻿using NUnit.Framework;
-using SalesTaxProblem;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using SalesTaxProblem.Domain.Models;
 using Telerik.JustMock;
 
-namespace SalesTaxProblem.Tests
+namespace SalesTaxProblemTests.Domain.Models
 {
     [TestFixture()]
     public class TransactionItemTests
