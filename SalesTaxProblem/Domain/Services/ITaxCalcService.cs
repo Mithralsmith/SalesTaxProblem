@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SalesTaxProblem.Domain.Models;
 
-namespace SalesTaxProblem.Extensions
+namespace SalesTaxProblem.Domain.Services
 {
     public interface ITaxCalcService
     {
