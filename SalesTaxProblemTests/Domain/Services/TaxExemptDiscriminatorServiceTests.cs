@@ -7,58 +7,62 @@ using SalesTaxProblem.Domain.Models;
 using Telerik.JustMock;
 
 namespace SalesTaxProblem.Domain.Services.Tests
+
 {
     [TestFixture()]
     public class TaxExemptDiscriminatorServiceTests
     {
+
+
+
         [Test()]
-        public void IsTaxExempt_ReturnsTrue_WhenNameIncludedInConstructor_Test()
+        public void IsTaxExempt_ReturnsTrue_WhenTypeNameIncludedInConstructor_Test()
         {
             var iProduct = Mock.Create<IProduct>();
-            var productName = "book";
-            Mock.Arrange(() => iProduct.Name).Returns(productName);
-            IEnumerable<string> productNames = new List<string>
+            var productTypeName = "book";
+            Mock.Arrange(() => iProduct.ProdType).Returns(productTypeName);
+            IEnumerable<string> productTypeNames = new List<string>
             {
-                productName
+                productTypeName
             };
 
-            var sut = new TaxExemptDiscriminatorService(productNames);
+            var sut = new TaxExemptDiscriminatorService(productTypeNames);
 
             var actual = sut.IsTaxExempt(iProduct);
             
             Assert.That(actual, Is.True);
         }
         [Test()]
-        public void IsTaxExempt_ReturnsTrue_When_DifferentCaseName_IncludedInConstructor_Test()
+        public void IsTaxExempt_ReturnsTrue_When_DifferentCaseTypeName_IncludedInConstructor_Test()
         {
-            var productName = "book";
-            var productNameWithDifferentCase = "Book";
+            var productTypeName = "book";
+            var productTypeNameWithDifferentCase = "Book";
             var iProduct = Mock.Create<IProduct>();
-            Mock.Arrange(() => iProduct.Name).Returns(productName);
-            IEnumerable<string> productNames = new List<string>
+            Mock.Arrange(() => iProduct.ProdType).Returns(productTypeName);
+            IEnumerable<string> productTypeNames = new List<string>
             {
-                productNameWithDifferentCase
+                productTypeNameWithDifferentCase
             };
 
-            var sut = new TaxExemptDiscriminatorService(productNames);
+            var sut = new TaxExemptDiscriminatorService(productTypeNames);
 
             var actual = sut.IsTaxExempt(iProduct);
 
             Assert.That(actual, Is.True);
         }
         [Test()]
-        public void IsTaxExempt_ReturnsFalse_WhenName_Not_IncludedInConstructor_Test()
+        public void IsTaxExempt_ReturnsFalse_WhenTypeName_Not_IncludedInConstructor_Test()
         {
-            var productName = "book";
-            var differentName = "apple";
+            var productTypeName = "book";
+            var differentTypeName = "apple";
             var iProduct = Mock.Create<IProduct>();
-            Mock.Arrange(() => iProduct.Name).Returns(differentName);
-            IEnumerable<string> productNames = new List<string>
+            Mock.Arrange(() => iProduct.ProdType).Returns(differentTypeName);
+            IEnumerable<string> productTypeNames = new List<string>
             {
-                productName
+                productTypeName
             };
 
-            var sut = new TaxExemptDiscriminatorService(productNames);
+            var sut = new TaxExemptDiscriminatorService(productTypeNames);
 
             var actual = sut.IsTaxExempt(iProduct);
 
@@ -67,18 +71,18 @@ namespace SalesTaxProblem.Domain.Services.Tests
 
 
         [Test()]
-        public void IsTaxExempt_ReturnsFalse_WhenName_MisspelledInConstructor_Test()
+        public void IsTaxExempt_ReturnsFalse_WhenTypeName_MisspelledInConstructor_Test()
         {
-            var misspelledProductName = "booke";
-            var productName = "book";
+            var misspelledProductTypeName = "booke";
+            var productTypeName = "book";
             var iProduct = Mock.Create<IProduct>();
-            Mock.Arrange(() => iProduct.Name).Returns(productName);
-            IEnumerable<string> productNames = new List<string>
+            Mock.Arrange(() => iProduct.ProdType).Returns(productTypeName);
+            IEnumerable<string> productTypeNames = new List<string>
             {
-                misspelledProductName
+                misspelledProductTypeName
             };
 
-            var sut = new TaxExemptDiscriminatorService(productNames);
+            var sut = new TaxExemptDiscriminatorService(productTypeNames);
 
             var actual = sut.IsTaxExempt(iProduct);
 

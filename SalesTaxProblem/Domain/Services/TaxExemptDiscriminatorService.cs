@@ -6,16 +6,16 @@ namespace SalesTaxProblem.Domain.Services
 {
     public class TaxExemptDiscriminatorService : ITaxExemptDiscriminatorService
     {
-        private readonly HashSet<string> _exemptProductNamesMap = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> _exemptProdTypeNamesMap = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        public TaxExemptDiscriminatorService(IEnumerable<string> exemptProductNames)
+        public TaxExemptDiscriminatorService(IEnumerable<string> exemptProdTypeNames)
         {
-            _exemptProductNamesMap.UnionWith(exemptProductNames);
+            _exemptProdTypeNamesMap.UnionWith(exemptProdTypeNames);
         }
 
         public bool IsTaxExempt(IProduct product)
         {
-            return _exemptProductNamesMap.Contains(product.Name);
+            return _exemptProdTypeNamesMap.Contains(product.ProdType);
         }
     }
 }
