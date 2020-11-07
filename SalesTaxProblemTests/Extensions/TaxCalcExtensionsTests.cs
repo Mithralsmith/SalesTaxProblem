@@ -10,7 +10,7 @@ namespace SalesTaxProblem.Extensions.Tests
     [TestFixture()]
     public class TaxCalcExtensionsTests
     {
-        private static object[] RoundUpTo5Cents_StartExpectedCases =
+        private static object[] _roundUpTo5CentsStartExpectedCases =
         {
             new object[] {TaxConstants.FiveCents, 0.05, 0.05},
             new object[] {TaxConstants.FiveCents, 0.05999, 0.10},
@@ -21,7 +21,7 @@ namespace SalesTaxProblem.Extensions.Tests
             new object[] {TaxConstants.FiveCents, 0.00, 0.00},
         };
 
-        [Test, TestCaseSource(nameof(RoundUpTo5Cents_StartExpectedCases))]
+        [Test, TestCaseSource(nameof(_roundUpTo5CentsStartExpectedCases))]
         public void RoundUpToNearest5Cents_Rounds_Test(double roundTo, double start, double expected)
         {
 

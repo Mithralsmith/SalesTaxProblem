@@ -6,7 +6,7 @@ namespace SalesTaxProblem.Domain.Models.Tests
     [TestFixture()]
     public class ProductTests
     {
-        private static object[] ProductTypeEnumToStringCases =
+        private static object[] _productTypeEnumToStringCases =
         {
             new object[] {ProductType.Book, "Book"},
             new object[] {ProductType.Taxable, "Taxable"},
@@ -25,7 +25,7 @@ namespace SalesTaxProblem.Domain.Models.Tests
             Assert.That(sut.ProdType, Is.EqualTo(expected));
         }
 
-        [Test, TestCaseSource(nameof(ProductTypeEnumToStringCases))]
+        [Test, TestCaseSource(nameof(_productTypeEnumToStringCases))]
         public void SetProductType_Test(ProductType @enum, string expected)
         {
             var sut = new Product() { Name = "book", Price = 12.49 };
