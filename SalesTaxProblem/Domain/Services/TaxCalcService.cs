@@ -52,8 +52,6 @@ namespace SalesTaxProblem.Domain.Services
 
         public double CalculateTaxes(IEnumerable<ITransactionItem> lineItems)
         {
-            //Assumption tax rounding is done after all taxes are calculated
-            //  Or else tax payers will revolt!
             var tax = 0.0d;
             foreach (var lineItem in lineItems)
             {
