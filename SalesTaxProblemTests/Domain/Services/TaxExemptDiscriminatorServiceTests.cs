@@ -13,16 +13,39 @@ namespace SalesTaxProblem.Domain.Services.Tests
     [TestFixture()]
     public class TaxExemptDiscriminatorServiceTests
     {
-        private static object[] _productTypeToIsTaxableCases =
+        private static object[] _productTypeToIsTaxExemptCases  =
         {
             new object[] {ProductType.Food, true},
             new object[] {ProductType.Medical, true},
             new object[] {ProductType.Book, true},
             new object[] {ProductType.Taxable, false},
         };
+        private static object[] _productTypeToIsTaxableCases =
+        {
+            new object[] {ProductType.Food, false},
+            new object[] {ProductType.Medical, false},
+            new object[] {ProductType.Book, false},
+            new object[] {ProductType.Taxable, true},
+        };
 
         [Test, TestCaseSource(nameof(_productTypeToIsTaxableCases))]
-        public void IsTaxExempt_ReturnsValueBasedOnDefinedTypeNames_Test(ProductType prodType,bool expected)
+        public void IsTaxable_ReturnsValueBasedOnDefinedTypeNames_Test(ProductType prodType, bool expected)
+        {
+            var iProduct = Mock.Create<IProduct>();
+            var productTypeName = prodType.ToString();
+            Mock.Arrange(() => iProduct.ProdType).Returns(productTypeName);
+
+            var sut = new TaxExemptDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+
+            var actual = sut.IsTaxable(iProduct);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+
+
+        [Test, TestCaseSource(nameof(_productTypeToIsTaxExemptCases))]
+        public void IsTaxExempt_ReturnsValueBasedOnDefinedTypeNames_Test(ProductType prodType, bool expected)
         {
             var iProduct = Mock.Create<IProduct>();
             var productTypeName = prodType.ToString();
@@ -49,7 +72,7 @@ namespace SalesTaxProblem.Domain.Services.Tests
             var sut = new TaxExemptDiscriminatorService(productTypeNames);
 
             var actual = sut.IsTaxExempt(iProduct);
-            
+
             Assert.That(actual, Is.True);
         }
         [Test()]
@@ -108,5 +131,6 @@ namespace SalesTaxProblem.Domain.Services.Tests
 
             Assert.That(actual, Is.False);
         }
+
     }
 }

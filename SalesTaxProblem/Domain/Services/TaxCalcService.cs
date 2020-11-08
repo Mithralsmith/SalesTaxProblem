@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using SalesTaxProblem.Domain.Models;
 using SalesTaxProblem.Extensions;
+using SalesTaxProblem.Persistence.Constants;
 
 namespace SalesTaxProblem.Domain.Services
 {
@@ -8,29 +10,57 @@ namespace SalesTaxProblem.Domain.Services
     {
         private ITaxExemptDiscriminatorService _exemptDiscriminatorService;
         private double _taxRate;
+        private double _importDutyRate;
 
-        public TaxCalcService(double taxRate, ITaxExemptDiscriminatorService exemptDiscriminatorService)
+        public TaxCalcService(double taxRate, double importDutyRate, ITaxExemptDiscriminatorService exemptDiscriminatorService)
         {
             _taxRate = taxRate;
+            _importDutyRate = importDutyRate;
             _exemptDiscriminatorService = exemptDiscriminatorService;
         }
 
-        public virtual double CalculateTax(IProduct product)
+        protected virtual double CalculateTax(IProduct product)
         {
-            var tax = 0;
-            if (_exemptDiscriminatorService.IsTaxExempt(product))
-                return 0;
-            else
+            var dutyTax = CalculateDutyTax(product);
+            var tax = CalculateSalesTax(product);
+
+            return tax + dutyTax;
+        }
+
+        protected virtual double CalculateSalesTax(IProduct product)
+        {
+            var tax = 0.0d;
+            if (_exemptDiscriminatorService.IsTaxable(product))
             {
-                
+                tax = (_taxRate * product.Price / 100);
             }
 
             return tax;
         }
 
-        public double CalculateTaxes(IEnumerable<IProduct> products)
+        protected virtual double CalculateDutyTax(IProduct product)
         {
-            return 0.0;
+            var dutyTax = 0.0d;
+            if (product.IsImported)
+            {
+                dutyTax = (_importDutyRate * product.Price / 100);
+            }
+
+            return dutyTax;
+        }
+
+
+        public double CalculateTaxes(IEnumerable<ITransactionItem> lineItems)
+        {
+            //Assumption tax rounding is done after all taxes are calculated
+            //  Or else tax payers will revolt!
+            var tax = 0.0d;
+            foreach (var lineItem in lineItems)
+            {
+                tax += CalculateTax(lineItem.ProductPurchased) * lineItem.Quantity;
+            }
+
+            return tax.RoundUpToNearest(TaxConstants.FiveCents);
         }
         
     }

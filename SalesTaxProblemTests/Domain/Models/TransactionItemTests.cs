@@ -12,11 +12,11 @@ namespace SalesTaxProblemTests.Domain.Models
         public void ToString_ReturnsProductAndImportedAndTaxExempt_Test()
         {
 
-            var expected = "product at $price, imported: False, taxable: False";
+            var expected = "1 product at $price";
             IProduct iProduct = Mock.Create<Product>();
             Mock.Arrange(() => iProduct.ToString()).Returns("product at $price");
 
-            var sut = new TransactionItem() { ProductPurchased = iProduct, IsImported = false, IsTaxable = false };
+            var sut = new TransactionItem() { ProductPurchased = iProduct, Quantity = 1};
 
 
             var actual = sut.ToString();

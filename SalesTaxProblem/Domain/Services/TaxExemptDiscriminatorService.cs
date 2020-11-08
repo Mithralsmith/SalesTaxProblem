@@ -17,5 +17,10 @@ namespace SalesTaxProblem.Domain.Services
         {
             return _exemptProdTypeNamesMap.Contains(product.ProdType);
         }
+
+        public bool IsTaxable(IProduct product)
+        {
+            return IsTaxExempt(product) == false;
+        }
     }
 }

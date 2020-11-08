@@ -16,9 +16,11 @@ namespace SalesTaxProblem.Persistence.Constants
             };
 
             public static double TaxRate { get; }
+            public static double ImportDutyRate { get; }
             static Config()
             {
-                TaxRate = 0.10;
+                TaxRate = 10;
+                ImportDutyRate = 5;
             }
         }
 

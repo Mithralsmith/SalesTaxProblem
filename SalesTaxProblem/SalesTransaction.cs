@@ -22,7 +22,7 @@ namespace SalesTaxProblem
 
         public double CalculateTaxes()
         {
-            return _taxCalc.CalculateTaxes(_products);
+            return _taxCalc.CalculateTaxes(ItemsSold);
         }
 
         public double CalculateTotalSale()

@@ -3,7 +3,7 @@
     public interface ITransactionItem
     {
         IProduct ProductPurchased { get; set; }
-        bool IsImported { get; set; }
-        bool IsTaxable { get; set; }
+        double Quantity { get; set; }
+
     }
 }

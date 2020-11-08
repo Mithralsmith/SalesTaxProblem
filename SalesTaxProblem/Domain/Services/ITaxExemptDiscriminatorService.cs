@@ -5,5 +5,6 @@ namespace SalesTaxProblem.Domain.Services
     public interface ITaxExemptDiscriminatorService
     {
         public bool IsTaxExempt(IProduct product);
+        public bool IsTaxable(IProduct product);
     }
 }

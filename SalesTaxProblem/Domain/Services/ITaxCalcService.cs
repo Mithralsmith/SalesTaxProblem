@@ -5,6 +5,6 @@ namespace SalesTaxProblem.Domain.Services
 {
     public interface ITaxCalcService
     {
-        double CalculateTaxes(IEnumerable<IProduct> products);
+        double CalculateTaxes(IEnumerable<ITransactionItem> products);
     }
 }
