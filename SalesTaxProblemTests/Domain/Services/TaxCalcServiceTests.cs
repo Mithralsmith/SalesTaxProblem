@@ -24,8 +24,8 @@ namespace SalesTaxProblem.Domain.Services.Tests
                 MockUtil.MockTransaction(1, "music CD", 14.99d, ProductType.Taxable, false),
                 MockUtil.MockTransaction(1, "chocolate bar", 0.85d, ProductType.Food, false),
             };
-            var taxExemptDiscriminator = new TaxExemptDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
-            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, taxExemptDiscriminator);
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
 
             var actual = sut.CalculateTaxes(transactionItems);
 
@@ -44,8 +44,8 @@ namespace SalesTaxProblem.Domain.Services.Tests
                 MockUtil.MockTransaction(1, "box of chocolates", 10.00d, ProductType.Food, true), 
                 MockUtil.MockTransaction(1, "bottle of perfume", 47.50d, ProductType.Taxable, true),
             };
-            var taxExemptDiscriminator = new TaxExemptDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
-            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, taxExemptDiscriminator);
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
 
             var actual = sut.CalculateTaxes(transactionItems);
 
@@ -64,8 +64,8 @@ namespace SalesTaxProblem.Domain.Services.Tests
                 MockUtil.MockTransaction(1, "packet of headache pills", 9.70d, ProductType.Medical, false),
                 MockUtil.MockTransaction(1, "box of imported chocolates", 11.25d, ProductType.Food, true),
             };
-            var taxExemptDiscriminator = new TaxExemptDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
-            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, taxExemptDiscriminator);
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
 
             var actual = sut.CalculateTaxes(transactionItems);
 
@@ -81,8 +81,8 @@ namespace SalesTaxProblem.Domain.Services.Tests
             {
                 MockUtil.MockTransaction(1, "book", 12.49d, ProductType.Book, false),
             };
-            var taxExemptDiscriminator = new TaxExemptDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
-            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, taxExemptDiscriminator);
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
 
             var actual = sut.CalculateTaxes(transactionItems);
 
@@ -98,8 +98,8 @@ namespace SalesTaxProblem.Domain.Services.Tests
             {
                 MockUtil.MockTransaction(1, "music CD", 14.99d, ProductType.Taxable, false),
             };
-            var taxExemptDiscriminator = new TaxExemptDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
-            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, taxExemptDiscriminator);
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
 
             var actual = sut.CalculateTaxes(transactionItems);
 
@@ -115,8 +115,42 @@ namespace SalesTaxProblem.Domain.Services.Tests
             {
                 MockUtil.MockTransaction(1, "chocolate bar", 0.85d, ProductType.Food, false),
             };
-            var taxExemptDiscriminator = new TaxExemptDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
-            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, taxExemptDiscriminator);
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
+
+            var actual = sut.CalculateTaxes(transactionItems);
+
+            Assert.That(actual, Is.EqualTo(expected));
+
+        }
+
+        [Test()]
+        public void CalculateTaxes_Input_multiple_Choc_NoTax_Test()
+        {
+            var expected = 0.00d;
+            var transactionItems = new List<ITransactionItem>
+            {
+                MockUtil.MockTransaction(10, "chocolate bar", 0.85d, ProductType.Food, false),
+            };
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
+
+            var actual = sut.CalculateTaxes(transactionItems);
+
+            Assert.That(actual, Is.EqualTo(expected));
+
+        }
+
+        [Test]
+        public void CalculateTaxes_Input_multiple_CD_1500Tax_Test()
+        {
+            var expected = 15.00d;
+            var transactionItems = new List<ITransactionItem>
+            {
+                MockUtil.MockTransaction(10, "music CD", 14.99d, ProductType.Taxable, false),
+            };
+            var mockDiscriminatorService = MockUtil.MockDiscriminatorService(Settings.Config.TaxExemptProductTypeNames);
+            var sut = new TaxCalcService(Settings.Config.TaxRate, Settings.Config.ImportDutyRate, mockDiscriminatorService);
 
             var actual = sut.CalculateTaxes(transactionItems);
 

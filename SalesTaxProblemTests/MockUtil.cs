@@ -30,30 +30,22 @@ namespace SalesTaxProblem.Tests
             return new TransactionItem() {ProductPurchased = product, Quantity = quantity};
         }
 
-        public static ITaxCalcService MockCalcService(double taxRate, double importDutyRate, IEnumerable<string> taxExemptProductTypeNames)
-        {
-            var exemptDiscriminatorService = new TaxExemptDiscriminatorService(taxExemptProductTypeNames);
-            var taxCalcService = new TaxCalcService(taxRate, importDutyRate, exemptDiscriminatorService);
-            return taxCalcService;
-        }
 
-
-        public static ITaxCalcService FullyMockedCalcService(double taxRate, double importDutyRate, IEnumerable<string> taxExemptProductTypeNames)
+        public static ITaxExemptDiscriminatorService MockDiscriminatorService(IEnumerable<string> taxExemptProductTypeNames)
         {
             var mockDiscriminatorService = Mock.Create<ITaxExemptDiscriminatorService>();
             var names = taxExemptProductTypeNames.ToList();
             foreach (var name in names)
             {
-                Mock.Arrange(() => mockDiscriminatorService.IsTaxExempt(Arg.IsAny<IProduct>()))
+                Mock.Arrange(() => mockDiscriminatorService.IsTaxable(Arg.IsAny<IProduct>()))
                     .Returns((IProduct p) =>
                     {
-                        return names.Any(s => s.ToLower() == p.ProdType.ToLower());
+                        return false == names.Any(s => s.ToLower() == p.ProdType.ToLower());
                     });
             }
-            
-            
-            var taxCalcService = new TaxCalcService(taxRate, importDutyRate, mockDiscriminatorService);
-            return taxCalcService;
+
+            return mockDiscriminatorService;
+
         }
         public static ITaxCalcService CreateCalcService(double taxRate, double importDutyRate, IEnumerable<string> taxExemptProductTypeNames)
         {
