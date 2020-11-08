@@ -1,2 +1,2 @@
-1 book: 12.49
-Sales Taxes: 0.00 Total: 12.49
+  * 1 book: 12.49
+  * Sales Taxes: 0.00 Total: 12.49

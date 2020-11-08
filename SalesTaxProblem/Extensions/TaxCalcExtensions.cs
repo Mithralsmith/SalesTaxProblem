@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using SalesTaxProblem.Domain.Models;
 using SalesTaxProblem.Persistence.Constants;
 
 namespace SalesTaxProblem.Extensions
@@ -14,5 +15,6 @@ namespace SalesTaxProblem.Extensions
             }
             return Math.Ceiling(value / roundTo) * roundTo;
         }
+
     }
 }

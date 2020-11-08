@@ -23,6 +23,7 @@ namespace SalesTaxProblem
             return itemsSold.Select(i => i.ProductPurchased.Price).Sum();
         }
 
+
         public string ToReceipt(IEnumerable<ITransactionItem> itemsSold)
         {
             var receiptBuilder = new StringBuilder();
@@ -40,12 +41,12 @@ namespace SalesTaxProblem
                 totalTax += lineItemTax;
                 total += priceWithTax;
                 receiptBuilder.AppendLine(
-                    $"{lineItem.Quantity} {(prod.IsImported ? "imported " : string.Empty)}{prod.Name}: {priceWithTax:F2}");
+                    $"  * {lineItem.Quantity} {(prod.IsImported ? "imported " : string.Empty)}{prod.Name}: {priceWithTax:F2}");
             }
 
             //var salesTaxes = _taxCalc.CalculateTaxes(items);
             //var total = CalcTotalWithoutTaxes(items) + salesTaxes;
-            receiptBuilder.AppendLine($"Sales Taxes: {totalTax:F2} Total: {total:F2}");
+            receiptBuilder.AppendLine($"  * Sales Taxes: {totalTax:F2} Total: {total:F2}");
 
             return receiptBuilder.ToString();
 
