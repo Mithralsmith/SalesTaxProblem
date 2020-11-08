@@ -11,24 +11,44 @@ namespace SalesTaxProblem
     public class SalesTransaction
     {
         private ITaxCalcService _taxCalc;
-        private IEnumerable<IProduct> _products;
-        public ICollection<ITransactionItem> ItemsSold { get; set; }
 
-        public SalesTransaction(IEnumerable<IProduct> products, ITaxCalcService taxCalc)
+        public SalesTransaction(ITaxCalcService taxCalc)
         {
             _taxCalc = taxCalc;
-            _products = products;
         }
 
-        public double CalculateTaxes()
+
+        private double CalcTotalWithoutTaxes(IEnumerable<ITransactionItem> itemsSold)
         {
-            return _taxCalc.CalculateTaxes(ItemsSold);
+            return itemsSold.Select(i => i.ProductPurchased.Price).Sum();
         }
 
-        public double CalculateTotalSale()
+        public string ToReceipt(IEnumerable<ITransactionItem> itemsSold)
         {
-            var totalOfPrices = _products.Select(p => p.Price).Sum();
-            return totalOfPrices + CalculateTaxes();
+            var receiptBuilder = new StringBuilder();
+
+            var totalTax = 0.0d;
+            var total = 0.0d;
+            var items = itemsSold.ToList();
+
+            foreach (var lineItem in items)
+            {
+                var prod = lineItem.ProductPurchased;
+                var lineItemTotalPrice = prod.Price * lineItem.Quantity;
+                var lineItemTax = _taxCalc.CalculateTaxes(new[] {lineItem});
+                var priceWithTax = lineItemTotalPrice + lineItemTax;
+                totalTax += lineItemTax;
+                total += priceWithTax;
+                receiptBuilder.AppendLine(
+                    $"{lineItem.Quantity} {(prod.IsImported ? "imported " : string.Empty)}{prod.Name}: {priceWithTax:F2}");
+            }
+
+            //var salesTaxes = _taxCalc.CalculateTaxes(items);
+            //var total = CalcTotalWithoutTaxes(items) + salesTaxes;
+            receiptBuilder.AppendLine($"Sales Taxes: {totalTax:F2} Total: {total:F2}");
+
+            return receiptBuilder.ToString();
+
         }
         
     }

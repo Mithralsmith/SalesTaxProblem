@@ -21,7 +21,7 @@ namespace SalesTaxProblem.Domain.Models.Tests
             var expected = "Taxable";
             var sut = new Product() { Name = "book", Price = 12.49 };
 
-            
+
             Assert.That(sut.ProdType, Is.EqualTo(expected));
         }
 
@@ -52,7 +52,7 @@ namespace SalesTaxProblem.Domain.Models.Tests
         public void ToString_returns_ImportedPlusNameAtPrice_Test()
         {
             var expected = "imported book at $12.49";
-            var sut = new Product() { Name = "book", Price = 12.49, IsImported = true};
+            var sut = new Product() { Name = "book", Price = 12.49, IsImported = true };
 
             var actual = sut.ToString();
 

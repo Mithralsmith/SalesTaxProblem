@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ApprovalTests" Version="5.4.3" />
+    <PackageReference Include="ApprovalUtilities" Version="5.4.3" />
     <PackageReference Include="JustMock" Version="2020.3.1019.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
@@ -18,6 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SalesTaxProblem\SalesTaxProblem.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApprovalTestsFiles\" />
   </ItemGroup>
 
 </Project>
