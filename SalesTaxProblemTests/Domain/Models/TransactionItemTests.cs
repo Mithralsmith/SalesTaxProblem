@@ -5,6 +5,7 @@ using Telerik.JustMock;
 
 namespace SalesTaxProblem.Domain.Models.Tests
 {
+    [TestFixture()]
     public class TransactionItemTests
     {
         [Test()]
@@ -25,12 +26,14 @@ namespace SalesTaxProblem.Domain.Models.Tests
             IProduct iProduct = Mock.Create<Product>();
             Mock.Arrange(() => iProduct.ToString()).Returns("product at $price");
 
-            var sut = new TransactionItem() { ProductPurchased = iProduct, Quantity = 1};
+            var sut = new TransactionItem() { ProductPurchased = iProduct, Quantity = 1 };
 
 
             var actual = sut.ToString();
 
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+
     }
 }

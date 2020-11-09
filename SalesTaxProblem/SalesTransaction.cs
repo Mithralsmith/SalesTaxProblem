@@ -18,12 +18,6 @@ namespace SalesTaxProblem
         }
 
 
-        private double CalcTotalWithoutTaxes(IEnumerable<ITransactionItem> itemsSold)
-        {
-            return itemsSold.Select(i => i.ProductPurchased.Price).Sum();
-        }
-
-
         public string ToReceipt(IEnumerable<ITransactionItem> itemsSold)
         {
             var receiptBuilder = new StringBuilder();
