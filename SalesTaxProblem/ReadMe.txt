@@ -2,9 +2,11 @@
 Based on the Preamble and Evaluation Guidelines, This application is representative of my coding style.   
 
 The Console program itself was written to meet the bare requirements since a real application that uses
-these classes would not be a console program.  No Input mechanism, No UI, and no data store.  I would consider
-The program and the SalesTransaction to be class integration test tools for the models and services that would be
-replaced by a real UI.
+these classes would not be a console program.  No Input mechanism, No UI, and no data store and not tests
+of the static methods in Program (hence no 100% coverage).  
+I would consider The program and the SalesTransaction to be class integration test tools for the models and 
+services that would be replaced by a real UI.
+All the models and services are unit tested.   
 
 Assumptions:
 1) Rounding is to be done once for each line of the receipt.   This is consistent with examples.  The actual
