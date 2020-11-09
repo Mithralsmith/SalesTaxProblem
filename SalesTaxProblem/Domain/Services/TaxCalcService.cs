@@ -19,31 +19,31 @@ namespace SalesTaxProblem.Domain.Services
             _exemptDiscriminatorService = exemptDiscriminatorService;
         }
 
-        protected virtual double CalculateTax(IProduct product)
+        protected virtual double CalculateTax(IProduct product, int quantity)
         {
-            var dutyTax = CalculateDutyTax(product);
-            var tax = CalculateSalesTax(product);
+            var dutyTax = CalculateDutyTax(product, quantity);
+            var tax = CalculateSalesTax(product, quantity);
 
             return tax + dutyTax;
         }
 
-        protected virtual double CalculateSalesTax(IProduct product)
+        protected virtual double CalculateSalesTax(IProduct product, int quantity)
         {
             var tax = 0.0d;
             if (_exemptDiscriminatorService.IsTaxable(product))
             {
-                tax = (_taxRate * product.Price / 100);
+                tax = (quantity * _taxRate * product.Price / 100);
             }
 
             return tax;
         }
 
-        protected virtual double CalculateDutyTax(IProduct product)
+        protected virtual double CalculateDutyTax(IProduct product, int quantity)
         {
             var dutyTax = 0.0d;
             if (product.IsImported)
             {
-                dutyTax = (_importDutyRate * product.Price / 100);
+                dutyTax = (quantity * _importDutyRate * product.Price / 100);
             }
 
             return dutyTax;
@@ -52,10 +52,11 @@ namespace SalesTaxProblem.Domain.Services
 
         public double CalculateTaxes(IEnumerable<ITransactionItem> lineItems)
         {
+            //Assumption calculate all the 
             var tax = 0.0d;
             foreach (var lineItem in lineItems)
             {
-                tax += CalculateTax(lineItem.ProductPurchased) * lineItem.Quantity;
+                tax += CalculateTax(lineItem.ProductPurchased, lineItem.Quantity);
             }
 
             return tax.RoundUpToNearest(TaxConstants.FiveCents);

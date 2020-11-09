@@ -2,7 +2,9 @@
 Based on the Preamble and Evaluation Guidelines, This application is representative of my coding style.   
 
 The Console program itself was written to meet the bare requirements since a real application that uses
-these classes would not be a console program.  No Input mechanism, No UI, and no data store.
+these classes would not be a console program.  No Input mechanism, No UI, and no data store.  I would consider
+The program and the SalesTransaction to be class integration test tools for the models and services that would be
+replaced by a real UI.
 
 Assumptions:
 1) Rounding is to be done once for each line of the receipt.   This is consistent with examples.  The actual
@@ -14,7 +16,7 @@ If given the opportunity I would discuss this with the stake holder(s) because t
 that by rounding up on every line item the user will be charged much more tax than is reasonable.
 
 2) There are no negative quantities allowed.  This is not an unreasonable requirement but for this
-problem I made this assumption and did not code for the possibility nor test for it.
+problem I made this assumption and thow an ArgumentException if any code tries to assign a negative value..
 
 If given the opportunity I would discuss this with the stake holder(s) to confirm this assumption is valid.
 

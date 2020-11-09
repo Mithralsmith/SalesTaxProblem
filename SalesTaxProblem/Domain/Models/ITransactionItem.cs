@@ -3,7 +3,7 @@
     public interface ITransactionItem
     {
         IProduct ProductPurchased { get; set; }
-        double Quantity { get; set; }
+        int Quantity { get; set; }
 
     }
 }

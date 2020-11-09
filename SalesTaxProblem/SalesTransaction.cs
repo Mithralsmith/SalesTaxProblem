@@ -40,12 +40,11 @@ namespace SalesTaxProblem
                 var priceWithTax = lineItemTotalPrice + lineItemTax;
                 totalTax += lineItemTax;
                 total += priceWithTax;
-                receiptBuilder.AppendLine(
-                    $"  * {lineItem.Quantity} {(prod.IsImported ? "imported " : string.Empty)}{prod.Name}: {priceWithTax:F2}");
+                var outLine =
+                    $"  * {lineItem.Quantity} {(prod.IsImported ? "imported " : string.Empty)}{prod.Name}: {priceWithTax:F2}";
+                receiptBuilder.AppendLine(outLine);
             }
 
-            //var salesTaxes = _taxCalc.CalculateTaxes(items);
-            //var total = CalcTotalWithoutTaxes(items) + salesTaxes;
             receiptBuilder.AppendLine($"  * Sales Taxes: {totalTax:F2} Total: {total:F2}");
 
             return receiptBuilder.ToString();

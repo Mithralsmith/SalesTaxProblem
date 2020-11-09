@@ -1,9 +1,22 @@
-﻿namespace SalesTaxProblem.Domain.Models
+﻿using System;
+
+namespace SalesTaxProblem.Domain.Models
 {
     public class TransactionItem : ITransactionItem
     {
         public IProduct ProductPurchased { get; set; }
-        public double Quantity { get; set; }
+        private int _quantity;
+
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException($"The quantity cannot be negative.",nameof(value));
+                _quantity = value;
+            }
+        }
 
         public override string ToString()
         {
